@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" name="user_info">
+        {% csrf_token %}
+            {% if request.user.is_authenticated %}
+                FIRST NAME*: <input type="text" name="firstname" value="{{ user.first_name }}"><br>
+                LAST NAME*: <input type="text" name="lastname" value="{{ user.last_name }}"><br>
+                EMAIL ADDRESS*: <input type="text" name="email" value="{{ user.email }}"><br>
+                {% if donation %}
+                    CMA #* <input type="number" name="cma" value="{{ donation.cma }}"><br>
+                    PHONE: <input type="text" name="phone" value="{{ donation.phone }}"><br>
+                    ADDRESS 1: <input type="text" name="addr1" value="{{ donation.address1 }}"><br>
+                    ADDRESS 2: <input type="text" name="addr2" value="{{ donation.address2 }}"><br>
+                    CITY: <input type="text" name="city" value="{{ donation.city }}"><br>
+                    STATE: <input type="text" name="state" value="{{ donation.state }}"><br>
+                    ZIP/POSTAL CODE: <input type="text" name="postal" value="{{ donation.postal }}"><br>
+                    COUNTRY: <input type="text" name="country" value="{{ donation.country }}"><br>
+                    URBANIZATION**: <input type="text" name="urb" value="{{ donation.urbanization }}"><br>
+                {% else %}
+                    CMA #* <input type="number" name="cma"><br>
+                    PHONE: <input type="text" name="phone"><br>
+                    ADDRESS 1: <input type="text" name="addr1"><br>
+                    ADDRESS 2: <input type="text" name="addr2"><br>
+                    CITY: <input type="text" name="city"><br>
+                    STATE: <input type="text" name="state"><br>
+                    ZIP/POSTAL CODE: <input type="text" name="postal"><br>
+                    COUNTRY: <input type="text" name="country"><br>
+                    URBANIZATION**: <input type="text" name="urb"><br>
+                {% endif %}
+            {% else %}
+                FIRST NAME*: <input type="text" name="firstname" value="ANONYMOUS"><br>
+                LAST NAME*: <input type="text" name="lastname" value="DONOR"><br>
+                EMAIL ADDRESS*: <input type="text" name="email"><br>
+                CMA #* <input type="number" name="cma"><br>
+                PHONE: <input type="text" name="phone"><br>
+                ADDRESS 1: <input type="text" name="addr1"><br>
+                ADDRESS 2: <input type="text" name="addr2"><br>
+                CITY: <input type="text" name="city"><br>
+                STATE: <input type="text" name="state"><br>
+                ZIP/POSTAL CODE: <input type="text" name="postal"><br>
+                COUNTRY: <input type="text" name="country"><br>
+                URBANIZATION**: <input type="text" name="urb"><br>
+            {% endif %}
+        * (Required fields)<br>
+        ** (If required for international address)<br>
+        <input type="submit" name="continue" value="Continue">
+        <input type="submit" name="cancel" value="Cancel">
+    </form>
+{% endblock %}

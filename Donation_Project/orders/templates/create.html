@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Checkout</h1>
+    <div class="order-info">
+        <h3>Your order</h3>
+        <ul>
+            {% for item in cart %}
+                <li>
+                    {{ item.quantity }}x {{ item.donation_type.name }}
+                    <span>${{ item.total_price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>Total: ${{ cart.get_total_price }}</p>
+    </div>
+    <form method="POST" class="order-form">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td>{{ order.first_name }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ order.last_name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ order.email }}</td>
+            </tr>
+            <tr>
+                <th>CMA #</th>
+                <td>{{ order.cma }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ order.phone }}</td>
+            </tr>
+            <tr>
+                <th>Address 1</th>
+                <td>{{ order.address1 }}</td>
+            </tr>
+            <tr>
+                <th>Address 2</th>
+                <td>{{ order.address2 }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ order.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ order.state }}</td>
+            </tr>
+            <tr>
+                <th>Postal</th>
+                <td>{{ order.postal }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ order.country }}</td>
+            </tr>
+            <tr>
+                <th>Urbanization</th>
+                <td>{{ order.urbanization }}</td>
+            </tr>
+        </table>
+        <input type="submit" name="checkout" value="Checkout">
+        <input type="submit" name="shopping" value="Continue Shopping">
+    </form>
+{% endblock %}

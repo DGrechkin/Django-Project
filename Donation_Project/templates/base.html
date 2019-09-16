@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X_UA_Compatible" content="IE=edge">
+    <title>NGO Donation Project</title>
+    <link rel="stylesheet" type="text/css" href= "{% static 'css/base.css' %}">
+    {% block localstyle %}{% endblock %}
+  </head>
+  <body>
+    <nav class="container">
+      <div class="header">
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a><br>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+      <div class="navigation">
+        <a href="{% url 'home' %}">Home</a>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+          <a href="{% url 'Donation_App:user_management' %}">User Management</a>
+          <a href="{% url 'Donation_App:donation_management' %}">Donation Management</a>
+        {% endif %}
+      <a href="{% url 'Donation_App:userview' %}">Make a Donation</a>
+      </div>
+      <div class="cart">
+        {% with total_items=cart|length %}
+          {% if cart|length > 0 %}
+            Your cart:
+            <a href="{% url 'cart:cart_detail' %}">
+               ${{ cart.get_total_price }}
+            </a>
+          {% else %}
+            Your cart is empty.
+          {% endif %}
+        {% endwith %}
+      </div>
+      <div class="content">
+        {% block content %}{% endblock %}
+      </div>
+    </nav>
+  </body>
+</html>

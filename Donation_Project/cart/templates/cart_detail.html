@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>ORDER SUMMARY</h1>
+<table class="cart">
+    <thead>
+    <tr>
+        <th>Item description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+        {% with donation_type=item.donation_type %}
+            <tr>
+                <td>{{ donation_type.name }}</td>
+                <td>{{ item.quantity }}<br>
+                    <a href="/cart/remove/{{ donation_type.pk }}">Remove</a>
+                </td>
+                <td class="num">${{ item.price }}</td>
+                <td class="num">${{ item.total_price }}</td>
+            </tr>
+        {% endwith %}
+    {% endfor %}
+    <tr class="total">
+        <td>{{ cart.get_quantity }} Item(s) in cart</td>
+        <td>Item subtotal</td>
+        <td colspan="4"></td>
+        <td class="num">${{ cart.get_total_price }}</td>
+    </tr>
+    <tr>
+        <td><a href="/cart/empty_cart/">Empty Cart</a> </td>
+        <td><a href="/cart/">Update Cart</a> </td>
+        <td><a href="/donationapp/userview/">Continue Shopping</a></td>
+        <td><a href="/orders/create/">Proceed to Checkout</a></td>
+    </tr>
+    </tbody>
+</table>
+{% endblock %}

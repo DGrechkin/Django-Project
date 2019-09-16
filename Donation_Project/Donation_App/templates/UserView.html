@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if request.user.is_authenticated and donationList %}
+        <table>
+            <h3>Your donations:</h3>
+            <thead>
+                <tr>
+                    <th>Donation Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in donationList %}
+                    <tr>
+                        <td>{{ item.donationType }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+            <input type="submit" value="Make donations">
+    </form>
+{% endblock %}

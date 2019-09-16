@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>User Management</h1>
+<a href="{% url 'Donation_App:add_user' %}">Add user</a>
+{% csrf_token %}
+<table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.is_staff == 1 %}
+                        Admin
+                    {% else %}
+                        User
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'Donation_App:edit_user' user.pk %}">Edit</a></td>
+                <td><a href="{% url 'Donation_App:delete_user' user.pk %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

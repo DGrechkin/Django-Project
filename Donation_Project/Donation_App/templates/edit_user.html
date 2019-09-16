@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        First name:<br>
+        <input type="text" name="firstname" value="{{ user.first_name }}"><br>
+        Last name:<br>
+        <input type="text" name="lastname" value="{{ user.last_name }}"><br>
+        Email:<br>
+        <input type="text" name="email" value="{{ user.email }}"><br>
+        Password:<br>
+        <input type="text" name="password"><br>
+        Role:<br>
+        {% if user.is_staff == 1 %}
+            <select name="role">
+                <option value="admin" selected="selected">Admin</option>
+                <option value="user">User</option>
+            </select><br>
+        {% else %}
+            <select name="role">
+                <option value="admin">Admin</option>
+                <option value="user" selected="selected">User</option>
+            </select><br>
+        {% endif %}
+        <input type="submit" name="save" value="Save">
+        <input type="submit" name="cancel" value="Cancel">
+    </form>
+{% endblock %}

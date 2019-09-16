@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for type in donation_types %}
+            {{ type.name }}<input type="text" name="{{ type.pk }}"><br>
+        {% endfor %}
+        <input type="submit" name="continue" value="Continue">
+        <input type="submit" name="cancel" value="Cancel">
+    </form>
+{% endblock %}
